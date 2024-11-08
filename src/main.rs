@@ -22,11 +22,16 @@ fn main() -> std::io::Result<()> {
     Ok(())
 }
 
-fn callback(event: Event, screens_dir: &String) {
+fn callback(event: Event, screens_dir: &String) -> Option<Event> {
     match event.event_type {
-        EventType::KeyPress(Key::PrintScreen) => None,
+        EventType::KeyPress(Key::PrintScreen) => {
+            make_screen(screens_dir);
+            None
+        }
         _ => Some(event),
     }
 }
 
-fn make_screen(screens_dir: &String) {}
+fn make_screen(screens_dir: &String) {
+    println!("test");
+}
