@@ -1,5 +1,6 @@
 #![warn(clippy::all, clippy::pedantic)]
 
+use rdev::{grab, Event, EventType, Key};
 use std::env;
 use std::fs;
 
