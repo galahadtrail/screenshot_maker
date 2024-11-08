@@ -11,11 +11,11 @@ fn main() -> std::io::Result<()> {
 
     let screens_dir = args.get(1).unwrap_or(&TARGET_DIR.to_string()).to_string();
     let mut path = env::current_dir()?;
-    path.push(screens_dir);
+    path.push(&screens_dir);
 
     fs::create_dir_all(path)?;
 
-    if let Err(error) = grab(|e| callback(e, &screens_dir)) {
+    if let Err(error) = grab(move |e| callback(e, &screens_dir)) {
         println!("Error: {error:?}");
     }
 
@@ -28,3 +28,5 @@ fn callback(event: Event, screens_dir: &String) {
         _ => Some(event),
     }
 }
+
+fn make_screen(screens_dir: &String) {}
