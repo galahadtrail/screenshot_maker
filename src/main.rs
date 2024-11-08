@@ -15,5 +15,11 @@ fn main() -> std::io::Result<()> {
 
     fs::create_dir_all(path)?;
 
+    if let Err(error) = grab(|e| callback(e, &screens_dir)) {
+        println!("Error: {error:?}");
+    }
+
     Ok(())
 }
+
+fn callback(event: Event, screens_dir: &String) {}
