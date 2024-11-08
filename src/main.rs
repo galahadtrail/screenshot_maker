@@ -1,6 +1,8 @@
 #![warn(clippy::all, clippy::pedantic)]
 
+use chrono::{DateTime, Utc};
 use rdev::{grab, Event, EventType, Key};
+use screenshots::Screen;
 use std::env;
 use std::fs;
 
@@ -33,5 +35,19 @@ fn callback(event: Event, screens_dir: &String) -> Option<Event> {
 }
 
 fn make_screen(screens_dir: &String) {
-    println!("test");
+    let screens: Vec<Screen> = Screen::all().unwrap();
+
+    for screen in screens {
+        let image = screen.capture().unwrap();
+
+        let now: DateTime<Utc> = Utc::now();
+
+        image
+            .save(format!(
+                "{}/{}.png",
+                screens_dir,
+                now.format("%d-%m-%Y_%H_%M_%S_%f")
+            ))
+            .unwrap();
+    }
 }
